@@ -44,15 +44,7 @@ public class HabitActivity extends AppCompatActivity {
     }
 
     private void displayDatabaseInfo() {
-        SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-        String[] project = {
-                HabitEntry._ID,
-                HabitEntry.COLUMN_HABIT_NAME,
-                HabitEntry.COLUMN_HABIT_DATE
-        };
-
-        Cursor cursor = db.query(HabitEntry.TABLE_NAME, project, null, null, null, null, null);
+        Cursor cursor = read();
         TextView displayView = (TextView) findViewById(R.id.text_view_habit);
 
         try {
@@ -76,13 +68,22 @@ public class HabitActivity extends AppCompatActivity {
             cursor.close();
         }
     }
-
+    private Cursor read(){
+        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        String[] project = {
+                HabitEntry._ID,
+                HabitEntry.COLUMN_HABIT_NAME,
+                HabitEntry.COLUMN_HABIT_DATE
+        };
+        Cursor cursor = db.query(HabitEntry.TABLE_NAME, project, null, null, null, null, null);
+        return cursor;
+    }
     private void insertPet(){
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
 
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("mm/dd/yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
         String formattedDate = df.format(c.getTime());
 
         values.put(HabitEntry.COLUMN_HABIT_NAME, "Do homework");

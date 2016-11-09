@@ -49,7 +49,7 @@ public class EditorActivity extends AppCompatActivity {
         ContentValues values = new ContentValues();
 
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat df = new SimpleDateFormat("mm/dd/yyyy");
+        SimpleDateFormat df = new SimpleDateFormat("dd/MMM/yyyy");
         String formattedDate = df.format(c.getTime());
 
         values.put(HabitEntry.COLUMN_HABIT_NAME, nameString);
